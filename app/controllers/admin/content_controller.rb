@@ -39,7 +39,7 @@ class Admin::ContentController < Admin::BaseController
       end
       @article.save!
       @merge.destroy
-      redirect_to admin_content_path(:edit, @article.id) #somewhere
+      redirect_to admin_content_edit_path(@article.id) #somewhere
     end
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
