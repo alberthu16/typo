@@ -28,6 +28,17 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def edit
+    if params[:merge_with]
+      @article = Article.find(params[:id])
+      @merge = Article.find(params[:merge_with])
+      @comments = Comment.where(:article_id => @merge.id)
+      @article.body = @article.body + @merge.body
+      @comments.each do |comment|
+        comment.article_id = @article.id
+        comment.save!
+      @article.save!
+      @merge.destroy
+      redirect_to admin_content_path #somewhere
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
       redirect_to :action => 'index'

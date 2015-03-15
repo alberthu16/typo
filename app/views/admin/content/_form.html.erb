@@ -146,10 +146,20 @@
     <ul id='attachments' class='inputs-list'>
       <%= render 'admin/content/attachment', { :attachment_num => 1, :hidden => false } -%>
     </ul>
-  </div>
+  </div> 
 
-  <div class="">
-    link_to("Merge", articles_show_path, html_options = {})
+  <div class=''>
+    <h4><%= _("Merge Articles") %></h4>
+    
+    <%= form_tag admin_content_path(:edit, @article.id) do %>
+
+      <p><%= label :article, :merge_with, 'Article ID' %>
+      <%= number_field :merge_with, 'Article ID' %></p>
+
+      <%= submit_tag 'Merge' %>
+
+    <% end %>
+  </div>      
   </div>
 
 </div>
