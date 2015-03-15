@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 require 'base64'
 
 module Admin; end
