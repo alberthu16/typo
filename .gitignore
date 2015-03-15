@@ -1,3 +1,5 @@
+db/
+.idea
 config/mail.yml
 *.log
 *~

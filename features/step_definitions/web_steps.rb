@@ -41,9 +41,11 @@ Given /^the blog is set up$/ do
                 :profile_id => 1,
                 :name => 'admin',
                 :state => 'active'})
+  puts "blog has been set up"
 end
 
 And /^I am logged into the admin panel$/ do
+  puts "Trying to log in..."
   visit '/accounts/login'
   fill_in 'user_login', :with => 'admin'
   fill_in 'user_password', :with => 'aaaaaaaa'
