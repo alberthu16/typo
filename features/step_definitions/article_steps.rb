@@ -11,26 +11,26 @@ Given /^the following comments exist:$/ do |comments|
   end
 end
 
-Given /^I am on the admin edit page for "(.*)"$/ do |arg1|
+Given /^I am in the admin edit page for "(.*)"$/ do |arg1|
     c = Article.find_by_title(arg1)
     visit "admin/content/edit/#{c.id}"
 end
 
 And /^I merge this article with: "(.*?)"$/ do |arg1|
   article_to_merge = Article.find_by_title(arg1)
+  fill_in "merge_with_Article ID", :with => article_to_merge.id.to_s
   click_button("Merge")
 end
 
 Then /^I should be reading the article "(.*?)"$/ do |arg1|
-  expect(page).to have_content arg1
+   puts find_field('article_title')
+   puts find_field('article_title').value
+   find_field('article_title').value.should == arg1
 end
 
-Then /^the author should be "(.*?)"$/ do |arg1|
-  page.should have_content(arg1)
-end
-
-And /^the title should be "(.*?)"$/ do |arg1|
-  page.should have_content(arg1)
+Then /^the (.*?) for article "(.*?)" should be "(.*?)"$/ do |arg1, arg2, arg3|
+  a = Article.find_by_title(arg2)
+  assert a[arg1] == arg3
 end
 
 Then /^I should see the words: "(.*?)", "(.*?)"$/ do |arg1, arg2|

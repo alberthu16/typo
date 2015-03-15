@@ -19,18 +19,18 @@ Feature: Merging articles
 
   Scenario: When articles are merged, the merged article should contain the text of both previous articles 
 
-    Given I am on the admin edit page for "Swag"
+    Given I am in the admin edit page for "Swag"
     And I merge this article with: "Swoggles"
     Then I should be reading the article "Swag"
-    And the author should be "alb"
-    And the title should be "Swag"
+    And the author for article "Swag" should be "alb"
+    And the title for article "Swag" should be "Swag"
     And the article "Swag" should have the comment "Dad"
     And the article "Swag" should have the comment "Bad"
     And I should see the words: "Lorem Ipsum", "bloopy blooper bloop"
 
   Scenario: Article ID error shown when merging article with wrong ID
     
-    Given I am on the admin edit page for "Swag"
+    Given I am in the admin edit page for "Swag"
     And I merge this article with: "Swoggles"
-    Then I am on the admin edit page for "Swag"
+    Then I am in the admin edit page for "Swag"
     And I should see "Article ID not found, please try another ID"
