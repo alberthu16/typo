@@ -28,27 +28,9 @@ Feature: Merging articles
     And the article "Swag" should have the comment "Bad"
     And I should see the words: "Lorem Ipsum", "bloopy blooper bloop"
 
-    #Given I am on the 'Edit' page for "Swag"
-    #Then I should see the "Merge With This Article" button
-    #And the page should have the 'merge_with' field
-    #When I input "1"
-    #And click the "Merge With This Article" button
-    #Then the merged article should have the words "Lorem bloopy"
-    #And the merged article should have the author "alb"
-    #And the merged article should have merged comments
-    #And the title should be the title from one of the original articles
-
   Scenario: Article ID error shown when merging article with wrong ID
     
     Given I am on the admin edit page for "Swag"
     And I merge this article with: "Swoggles"
     Then I am on the admin edit page for "Swag"
     And I should see "Article ID not found, please try another ID"
-
-    #Given I am on the 'Content' page
-    #When I click 'Edit' on an Article
-    #Then I should see "Merge Articles"
-    #And the page should have the 'merge_with' field
-    #When I input the wrong id of the article to merge
-    #And click Merge
-    #Then I should see "Article ID not found, please try another ID"
