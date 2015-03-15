@@ -151,10 +151,10 @@
   <div class=''>
     <h4><%= _("Merge Articles") %></h4>
     
-    <%= form_tag admin_content_path(:edit, @article.id) do %>
+    <%= form_tag edit_admin_content_path(@article.id) do %>
 
       <p><%= label :article, :merge_with, 'Article ID' %>
-      <%= number_field :merge_with %></p>
+      <%= number_field_tag 'merge_with' %></p>
 
       <%= submit_tag 'Merge' %>
 
