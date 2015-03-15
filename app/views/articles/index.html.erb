@@ -2,3 +2,10 @@
 <div class='paginate'>
   <%= paginate(@articles)%>
 </div>
+
+<%= form_tag movies_path do %>
+
+  <%= label :article, :id, 'Merge Articles' %>
+  <%= number_field :id, 'Article ID' %>
+
+  <%= submit_tag 'Merge' %>

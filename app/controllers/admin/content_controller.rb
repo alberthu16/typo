@@ -36,9 +36,11 @@ class Admin::ContentController < Admin::BaseController
       @comments.each do |comment|
         comment.article_id = @article.id
         comment.save!
+      end
       @article.save!
       @merge.destroy
       redirect_to admin_content_path #somewhere
+    end
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
       redirect_to :action => 'index'

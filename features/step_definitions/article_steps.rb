@@ -8,6 +8,7 @@ end
 Given /^the following comments exist:$/ do |comments|
   comments.hashes.each do |comment|
     c = Comment.new(title: comment[:title], author: comment[:author], body: comment[:body], type: comment[:type], article_id: comment[:article_id])
+    c.save!(validate: false)
     puts c.save(validate: false)
     puts c.id, c.title, c.article_id
   end
