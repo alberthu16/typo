@@ -153,8 +153,8 @@
     
     <%= form_tag admin_content_path(:edit, @article.id) do %>
 
-      <p><%= label :article, :merge_with, 'Article ID' %>
-      <%= number_field :merge_with, 'merge_with' %></p>
+      <p><%= label :merge_with, 'Article ID' %>
+      <%= number_field :merge_with %></p>
 
       <%= submit_tag 'Merge' %>
 
