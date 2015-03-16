@@ -148,18 +148,16 @@
     </ul>
   </div> 
 
-  <div class=''>
     <h4><%= _("Merge Articles") %></h4>
-    
-    <%= form_tag edit_admin_content_path(@article.id) do %>
+      <div class=''>
+        <%= form_tag(:controller => "content", :action => "index") do %>
 
-      <p><%= label :article, :merge_with, 'Article ID' %>
-      <%= number_field_tag 'merge_with' %></p>
+          <%= label_tag :article, 'Article ID:' %>
+          <%= number_field 'merge_with', 'id', {:autocomplete => 'off', :style => 'width: 100%'} %>
 
-      <%= submit_tag 'Merge' %>
-
-    <% end %>
-  </div>      
+          <%= submit_tag 'Merge' %>
+        <% end %>
+      </div>
   </div>
 
 </div>

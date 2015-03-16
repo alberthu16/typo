@@ -12,6 +12,21 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def index
+   @p = params
+   if params[:merge_with]
+      @article = Article.find(params[:id])
+      @merge = Article.find(params[:merge_with])
+      @comments = Comment.where(:article_id => @merge.id)
+      @article.body = @article.body + @merge.body
+      @comments.each do |comment|
+        comment.article_id = @article.id
+        comment.save!
+      end
+      @article.save!
+      @merge.destroy
+      redirect_to @article.edit_url
+      # redirect_to edit_admin_content_path(@article.id) #somewhere
+    end
     @search = params[:search] ? params[:search] : {}
     
     @articles = Article.search_with_pagination(@search, {:page => params[:page], :per_page => this_blog.admin_display_elements})
@@ -28,19 +43,7 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def edit
-    if params[:merge_with]
-      @article = Article.find(params[:id])
-      @merge = Article.find(params[:merge_with])
-      @comments = Comment.where(:article_id => @merge.id)
-      @article.body = @article.body + @merge.body
-      @comments.each do |comment|
-        comment.article_id = @article.id
-        comment.save!
-      end
-      @article.save!
-      @merge.destroy
-      redirect_to edit_admin_content_path(@article.id) #somewhere
-    end
+
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
       redirect_to :action => 'index'
