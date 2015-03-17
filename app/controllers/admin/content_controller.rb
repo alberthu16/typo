@@ -29,8 +29,7 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def edit
-    @user_profile = Profile.find(current_user.profile_id)
-    @merge_accessible = ( @user_profile.label == "admin")
+    @merge_accessible = current_user.admin?
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
       redirect_to :action => 'index'
@@ -143,6 +142,7 @@ class Admin::ContentController < Admin::BaseController
   def real_action_for(action); { 'add' => :<<, 'remove' => :delete}[action]; end
 
   def new_or_edit
+    @merge_accessible = current_user.admin?
 
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
