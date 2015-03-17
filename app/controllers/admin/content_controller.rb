@@ -166,7 +166,7 @@ class Admin::ContentController < Admin::BaseController
     @article.published_at = DateTime.strptime(params[:article][:published_at], "%B %e, %Y %I:%M %p GMT%z").utc rescue Time.parse(params[:article][:published_at]).utc rescue nil
 
     if request.post?
-      if params.has_key?(:merge_with) and params[:merge_with] != ""
+      if params.has_key?(:merge_with) and params[:merge_with] != "" and @merge_accessible
         merge = Article.find(params[:merge_with])
         comments = Comment.where(:article_id => merge.id)
         @article.body += merge.body
