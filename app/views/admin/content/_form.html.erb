@@ -148,7 +148,7 @@
     </ul>
   </div>
 
-
+  <% if @merge_accessible %>
     <h4><%= _("Merge Articles") %></h4>
       <div class=''>
         <%= label_tag :article, 'Article ID:' %>
@@ -156,6 +156,7 @@
 
         <%= submit_tag 'Merge' %>
       </div>
+  <% end %>
   </div>
 
 </div>
