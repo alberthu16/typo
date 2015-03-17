@@ -29,7 +29,8 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def edit
-    @merge_accessible = (current_user.name == "admin")
+    @user_profile = Profile.find(current_user.profile_id)
+    @merge_accessible = ( @user_profile.label == "admin")
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
       redirect_to :action => 'index'
