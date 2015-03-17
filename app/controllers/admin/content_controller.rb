@@ -12,21 +12,7 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def index
-   @p = params
-   if params[:merge_with]
-      @article = Article.find(params[:id])
-      @merge = Article.find(params[:merge_with])
-      @comments = Comment.where(:article_id => @merge.id)
-      @article.body = @article.body + @merge.body
-      @comments.each do |comment|
-        comment.article_id = @article.id
-        comment.save!
-      end
-      @article.save!
-      @merge.destroy
-      redirect_to @article.edit_url
-      # redirect_to edit_admin_content_path(@article.id) #somewhere
-    end
+
     @search = params[:search] ? params[:search] : {}
     
     @articles = Article.search_with_pagination(@search, {:page => params[:page], :per_page => this_blog.admin_display_elements})
@@ -156,6 +142,7 @@ class Admin::ContentController < Admin::BaseController
   def real_action_for(action); { 'add' => :<<, 'remove' => :delete}[action]; end
 
   def new_or_edit
+
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
@@ -179,6 +166,21 @@ class Admin::ContentController < Admin::BaseController
     @article.published_at = DateTime.strptime(params[:article][:published_at], "%B %e, %Y %I:%M %p GMT%z").utc rescue Time.parse(params[:article][:published_at]).utc rescue nil
 
     if request.post?
+      if params.has_key?(:merge_with) and params[:merge_with] != ""
+        merge = Article.find(params[:merge_with])
+        comments = Comment.where(:article_id => merge.id)
+        @article.body += merge.body
+        @article.save!
+        if not comments.empty?
+          comments.each do |comment|
+            comment.article_id = @article.id
+            comment.save!
+          end
+        end
+        # merge.destroy
+        # redirect_to @article.edit_url
+        # # redirect_to edit_admin_content_path(@article.id) #somewhere
+      end
       set_article_author
       save_attachments
       

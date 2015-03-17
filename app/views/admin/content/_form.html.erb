@@ -146,17 +146,15 @@
     <ul id='attachments' class='inputs-list'>
       <%= render 'admin/content/attachment', { :attachment_num => 1, :hidden => false } -%>
     </ul>
-  </div> 
+  </div>
+
 
     <h4><%= _("Merge Articles") %></h4>
       <div class=''>
-        <%= form_tag(:controller => "content", :action => "index") do %>
+        <%= label_tag :article, 'Article ID:' %>
+        <%= number_field_tag 'merge_with' %>
 
-          <%= label_tag :article, 'Article ID:' %>
-          <%= number_field 'merge_with', 'id', {:autocomplete => 'off', :style => 'width: 100%'} %>
-
-          <%= submit_tag 'Merge' %>
-        <% end %>
+        <%= submit_tag 'Merge' %>
       </div>
   </div>
 
