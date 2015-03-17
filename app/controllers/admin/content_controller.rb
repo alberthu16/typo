@@ -177,9 +177,7 @@ class Admin::ContentController < Admin::BaseController
             comment.save!
           end
         end
-        # merge.destroy
-        # redirect_to @article.edit_url
-        # # redirect_to edit_admin_content_path(@article.id) #somewhere
+        merge.destroy
       end
       set_article_author
       save_attachments
