@@ -25,7 +25,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def new_or_edit
     @categories = Category.find(:all)
-    if params[:id].nil? or params[:id] = ''
+    if params[:id].nil? or params[:id] == ''
       @category = Category.new({name: "new category", description: "category description"})
     else
       @category = Category.find(params[:id])
